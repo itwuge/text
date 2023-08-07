@@ -1,4 +1,4 @@
-name: Build OpenWrt
+name: Build OpenWrtX86
 
 on:
   repository_dispatch:
@@ -18,12 +18,15 @@ jobs:
 
     - name: 初始化项目
       run: |
+        export FORCE_UNSAFE_CONFIGURE=1
         sudo apt-get update
-        sudo apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint python3
+        sudo apt-get upgrade
+        sudo apt install build-essential clang flex g++ gawk gcc-multilib gettext git libncurses5-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
     - name: 克隆源代码
       run: |
-        git clone https://github.com/openwrt/openwrt
+        git clone https://github.com/openwrt/openwrt.git
         cd openwrt
+        git checkout openwrt-23.05
         ./scripts/feeds update -a
         ./scripts/feeds install -a
     - name: SSH连接到操作
