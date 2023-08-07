@@ -21,7 +21,11 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    - name : 上传固件
+    - name: 开始编译固件
+      run: |
+        cd openwrt
+        make -j$(nproc) || make -j1 || make -j1 V=s 
+    - name: 上传固件
       uses: actions/upload-artifact@master
       with:
         name: OpenWrt
