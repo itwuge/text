@@ -21,8 +21,9 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
     - name: 上传bin
       uses: actions/upload-artifact@v3
       with:
-        name: OpenWrt_bin-wuge-Lean
-        path: openwrt
+        name: Docker-img 
+        path: /tmp/
